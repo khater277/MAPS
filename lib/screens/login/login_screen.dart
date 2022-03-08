@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maps/cubit/maps_cubit.dart';
 import 'package:maps/cubit/maps_states.dart';
-import 'package:maps/screens/login/login_items.dart';
+import 'package:maps/screens/login/login_items/country_and_phone.dart';
+import 'package:maps/screens/login/login_items/login_head.dart';
+import 'package:maps/screens/login/login_items/next_button.dart';
+
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -27,10 +31,10 @@ class _LoginScreenState extends State<LoginScreen> {
         return SafeArea(
             child:
             Scaffold(
-              body: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 60,horizontal: 20),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
+              body: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 60,horizontal: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

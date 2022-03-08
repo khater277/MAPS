@@ -13,8 +13,8 @@ ThemeData darkTheme=ThemeData(
     textTheme: TextTheme(
         bodyText1:const TextStyle(
           color: Colors.white,
-          fontWeight: FontWeight.w600,
-          fontSize: 24,
+          fontWeight: FontWeight.normal,
+          fontSize: 20,
         ),
         bodyText2: const TextStyle(
           color: Colors.white,
@@ -58,7 +58,6 @@ ThemeData darkTheme=ThemeData(
 );
 
 ThemeData lightTheme=ThemeData(
-    primarySwatch: Colors.orange,
     fontFamily: 'SF-Pro-Display',
     scaffoldBackgroundColor: Colors.white,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -70,8 +69,8 @@ ThemeData lightTheme=ThemeData(
     textTheme: const TextTheme(
       bodyText1:TextStyle(
         color: Colors.black87,
-        fontWeight: FontWeight.w600,
-        fontSize: 24,
+        fontWeight: FontWeight.normal,
+        fontSize: 20,
       ),
       bodyText2: TextStyle(
         color: Colors.black87,

@@ -11,31 +11,31 @@ import 'package:progress_indicators/progress_indicators.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 
-SnackbarController showSnackBar (){
+SnackbarController showSnackBar ({@required String? text,@required BuildContext? context}){
   return Get.snackbar(
-      "Error",
-      "we are poor, only have 10 requests per minute",
-      titleText: const Text("Error",
-        style: TextStyle(
-            fontSize: 20,
+      "warning...",
+      text!,
+      titleText: Text("warning...",
+        style: Theme.of(context!).textTheme.bodyText1!.copyWith(
+            fontSize: 16,
             color: Colors.white
         ),),
-      messageText: const Text(
-        "we are poor, only have 10 requests per minute",
-        style: TextStyle(
-            fontSize: 16,
+      messageText:Text(
+        text,
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            fontSize: 12,
             color: Colors.white
         ),
       ),
       icon: const Icon(
         IconBroken.Danger,
         color: Colors.white,
-        size: 30,),
-      duration: const Duration(seconds: 5),
+        size: 25,),
+      duration: const Duration(seconds: 3),
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.black,
       borderRadius: 10,
-      margin: const EdgeInsets.symmetric(vertical: 12,horizontal: 15)
+      margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 7)
     //padding: const EdgeInsets.all(0)
   );
 }
@@ -559,7 +559,9 @@ class DefaultTextFiled extends StatelessWidget {
   bool? validate;
   bool? autoFocus;
   String? errorText;
+  double? letterSpacing;
   bool? obscure;
+  Color? cursorColor;
   var onSubmitted;
   var onChanged;
 
@@ -574,10 +576,12 @@ class DefaultTextFiled extends StatelessWidget {
         required this.border,
         required this.inputType,
         this.validate,
+        this.letterSpacing,
         this.autoFocus,
         this.errorText,
         this.onChanged,
         this.onSubmitted,
+        this.cursorColor,
         required this.rounded,
         this.obscure})
       : super(key: key);
@@ -586,13 +590,16 @@ class DefaultTextFiled extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       inputFormatters: [NoLeadingSpaceFormatter()],
-      cursorColor: focusBorder,
+      cursorColor: cursorColor??focusBorder,
       controller: controller,
       autofocus: autoFocus??false,
       keyboardType: inputType,
       onSubmitted: onSubmitted ?? (value) {},
       onChanged: onChanged ?? (value) {},
       obscureText: obscure ?? false,
+      style: TextStyle(
+        letterSpacing: letterSpacing??0
+      ),
       decoration: InputDecoration(
         errorText: validate == true ? null : errorText??"",
         hintText: hint,

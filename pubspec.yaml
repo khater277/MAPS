@@ -49,6 +49,7 @@ dependencies:
   flutter_svg: ^1.0.3
   image_picker: ^0.8.4+8
   url_launcher: ^6.0.20
+  pin_code_fields: ^7.3.0
 
 
   #firebase
