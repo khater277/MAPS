@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:maps/cubit/maps_cubit.dart';
+import 'package:maps/cubit/app/maps_cubit.dart';
+import 'package:maps/cubit/login/login_cubit.dart';
 import 'package:maps/shared/constant.dart';
 import 'package:maps/shared/default_widgets.dart';
 
@@ -26,7 +27,7 @@ class PhoneInfo extends StatelessWidget {
         letterSpacing: 2,
         inputType: TextInputType.phone,
         onChanged: (value){
-          MapsCubit.get(context).phoneValidation(phone: phoneController.text);
+          LoginCubit.get(context).phoneValidation(phone: phoneController.text);
         },
       ),
     );

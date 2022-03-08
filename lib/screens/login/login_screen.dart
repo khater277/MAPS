@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:maps/cubit/maps_cubit.dart';
-import 'package:maps/cubit/maps_states.dart';
+import 'package:maps/cubit/app/maps_cubit.dart';
+import 'package:maps/cubit/app/maps_states.dart';
+import 'package:maps/cubit/login/login_cubit.dart';
+import 'package:maps/cubit/login/login_states.dart';
 import 'package:maps/screens/login/login_items/country_and_phone.dart';
 import 'package:maps/screens/login/login_items/login_head.dart';
 import 'package:maps/screens/login/login_items/next_button.dart';
@@ -25,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MapsCubit,MapsStates>(
+    return BlocConsumer<LoginCubit,LoginStates>(
       listener: (context,state){},
       builder: (context,state){
         return SafeArea(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:maps/cubit/maps_states.dart';
+import 'package:maps/cubit/login/login_states.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:maps/shared/constant.dart';
 
-class MapsCubit extends Cubit<MapsStates>{
-  MapsCubit() : super(AppInitialState());
-  static MapsCubit get(context)=>BlocProvider.of(context);
+class LoginCubit extends Cubit<LoginStates>{
+  LoginCubit() : super(LoginInitialState());
+  static LoginCubit get(context)=>BlocProvider.of(context);
+
 
   bool phoneTextFieldValidate = false;
   String validationMsg = "please enter your phone number!";
@@ -34,8 +37,7 @@ class MapsCubit extends Cubit<MapsStates>{
       }
     }
     print(phoneTextFieldValidate);
-    emit(SignUpPhoneValidationState());
+    emit(LoginPhoneValidationState());
   }
-
 
 }
