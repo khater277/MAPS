@@ -40,4 +40,55 @@ class LoginCubit extends Cubit<LoginStates>{
     emit(LoginPhoneValidationState());
   }
 
+
+  late String verificationId;
+  Future<void> phoneAuth({@required String? phoneNumber})async{
+    emit(LoginLoadingState());
+   return await FirebaseAuth.instance.verifyPhoneNumber(
+     phoneNumber: '+2${phoneNumber!}',
+     verificationCompleted: _verificationCompleted,
+     verificationFailed: _verificationFailed,
+     codeSent: _codeSent,
+     timeout: const Duration(seconds: 60),
+     codeAutoRetrievalTimeout: (String verificationId) {},
+   );
+ }
+
+ void _verificationCompleted (PhoneAuthCredential credential) {
+   FirebaseAuth.instance.signInWithCredential(credential)
+       .then((value){
+     print("verificationCompleted");
+     emit(LoginVerificationCompletedState());
+   }).catchError((error){
+     printError("verificationCompleted", error.toString());
+     emit(LoginErrorState());
+   });
+ }
+
+ void _verificationFailed (FirebaseAuthException error) {
+   if (error.code == 'invalid-phone-number') {
+     print('The provided phone number is not valid.');
+     //printError("phoneAuth", error.toString());
+     emit(LoginErrorState());
+   }
+ }
+
+ void _codeSent(String verificationId, int? resendToken) {
+   this.verificationId = verificationId;
+   print("code sent");
+   emit(LoginCodeSentState());
+ }
+
+ void submitOtp(String smsCode){
+   PhoneAuthCredential credential = PhoneAuthProvider
+       .credential(verificationId: verificationId, smsCode: smsCode);
+   FirebaseAuth.instance.signInWithCredential(credential)
+       .then((value){
+     print(value.user!.phoneNumber!);
+     emit(LoginCodeSentState());
+   }).catchError((error){
+     printError("submitOtp", error.toString());
+     emit(LoginErrorState());
+   });
+ }
 }

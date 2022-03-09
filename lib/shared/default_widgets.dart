@@ -41,6 +41,8 @@ SnackbarController showSnackBar ({@required String? text,@required BuildContext?
 }
 
 
+
+
 class NoLeadingSpaceFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
@@ -58,9 +60,11 @@ class NoLeadingSpaceFormatter extends TextInputFormatter {
         ),
       );
     }
+
     return newValue;
   }
 }
+
 
 // ignore: must_be_immutable
 class DefaultProgressIndicator extends StatelessWidget {
@@ -555,6 +559,7 @@ class DefaultTextFiled extends StatelessWidget {
   final Widget suffix;
   final Color focusBorder;
   final Color border;
+  final List<TextInputFormatter> formatters;
   final TextInputType inputType;
   bool? validate;
   bool? autoFocus;
@@ -575,6 +580,7 @@ class DefaultTextFiled extends StatelessWidget {
         required this.focusBorder,
         required this.border,
         required this.inputType,
+        required this.formatters,
         this.validate,
         this.letterSpacing,
         this.autoFocus,
@@ -583,13 +589,13 @@ class DefaultTextFiled extends StatelessWidget {
         this.onSubmitted,
         this.cursorColor,
         required this.rounded,
-        this.obscure})
+        this.obscure,})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      inputFormatters: [NoLeadingSpaceFormatter()],
+      inputFormatters: formatters,
       cursorColor: cursorColor??focusBorder,
       controller: controller,
       autofocus: autoFocus??false,

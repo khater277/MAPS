@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:maps/cubit/app/maps_cubit.dart';
 import 'package:maps/cubit/login/login_cubit.dart';
 import 'package:maps/shared/constant.dart';
@@ -13,6 +14,7 @@ class PhoneInfo extends StatelessWidget {
     return Expanded(
       flex: 2,
       child: DefaultTextFiled(
+        formatters: [FilteringTextInputFormatter.deny(RegExp('[ ]')),],
         controller: phoneController,
         validate: true,
         hint: "",

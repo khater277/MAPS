@@ -5,6 +5,8 @@ const Color blue = Color(0xff0666EB);
 const Color lightBlue = Color(0xffE5EFFD);
 const Color lightGrey = Color(0xffE1E1E1);
 
+
+String? otp;
 String? lang;
 String? defaultLang;
 

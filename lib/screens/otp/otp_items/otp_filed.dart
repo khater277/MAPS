@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:maps/shared/constant.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class OtpFiled extends StatelessWidget {
+class OtpFiled extends StatefulWidget {
   const OtpFiled({Key? key}) : super(key: key);
 
+  @override
+  State<OtpFiled> createState() => _OtpFiledState();
+}
+
+class _OtpFiledState extends State<OtpFiled> {
   @override
   Widget build(BuildContext context) {
     return PinCodeTextField(
@@ -34,6 +39,9 @@ class OtpFiled extends StatelessWidget {
       onCompleted: (v) {
         print("Completed");
         print(v);
+        setState(() {
+          otp = v;
+        });
       },
       onChanged: (value) {
         print(value);

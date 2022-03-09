@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:maps/cubit/app/maps_cubit.dart';
-import 'package:maps/cubit/app/maps_states.dart';
+import 'package:get/get.dart';
 import 'package:maps/cubit/login/login_cubit.dart';
 import 'package:maps/cubit/login/login_states.dart';
 import 'package:maps/screens/login/login_items/country_and_phone.dart';
 import 'package:maps/screens/login/login_items/login_head.dart';
 import 'package:maps/screens/login/login_items/next_button.dart';
+import 'package:maps/screens/otp/otp_screen.dart';
 
 
 
@@ -19,7 +19,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _phoneController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     _phoneController.dispose();
@@ -28,7 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit,LoginStates>(
-      listener: (context,state){},
+      listener: (context,state){
+        if(state is LoginCodeSentState){
+          Get.to(()=>const OtpScreen());
+        }
+      },
       builder: (context,state){
         return SafeArea(
             child:
@@ -44,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 110,),
                       CountryAndPhone(phoneController: _phoneController,),
                       const SizedBox(height: 70,),
-                      const NextButton()
+                      NextButton(phoneNumber: _phoneController.text,state: state,)
                     ],
                   ),
                 ),
