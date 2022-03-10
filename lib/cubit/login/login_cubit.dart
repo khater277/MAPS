@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maps/cubit/login/login_states.dart';
@@ -43,52 +45,57 @@ class LoginCubit extends Cubit<LoginStates>{
 
   late String verificationId;
   Future<void> phoneAuth({@required String? phoneNumber})async{
+    //otp=null;
     emit(LoginLoadingState());
    return await FirebaseAuth.instance.verifyPhoneNumber(
      phoneNumber: '+2${phoneNumber!}',
-     verificationCompleted: _verificationCompleted,
-     verificationFailed: _verificationFailed,
-     codeSent: _codeSent,
+     verificationCompleted: verificationCompleted,
+     verificationFailed: verificationFailed,
+     codeSent: codeSent,
      timeout: const Duration(seconds: 60),
      codeAutoRetrievalTimeout: (String verificationId) {},
    );
  }
 
- void _verificationCompleted (PhoneAuthCredential credential) {
+ void verificationCompleted (PhoneAuthCredential credential) {
    FirebaseAuth.instance.signInWithCredential(credential)
        .then((value){
      print("verificationCompleted");
      emit(LoginVerificationCompletedState());
    }).catchError((error){
      printError("verificationCompleted", error.toString());
-     emit(LoginErrorState());
+     emit(LoginErrorState(error));
    });
  }
 
- void _verificationFailed (FirebaseAuthException error) {
-   if (error.code == 'invalid-phone-number') {
-     print('The provided phone number is not valid.');
-     //printError("phoneAuth", error.toString());
-     emit(LoginErrorState());
-   }
+ void verificationFailed (FirebaseAuthException error) {
+     emit(LoginErrorState(error.toString()));
  }
 
- void _codeSent(String verificationId, int? resendToken) {
-   this.verificationId = verificationId;
-   print("code sent");
-   emit(LoginCodeSentState());
+ void codeSent(String verificationId, int? resendToken) {
+     this.verificationId = verificationId;
+     print("code sent");
+     emit(LoginCodeSentState());
+
  }
 
  void submitOtp(String smsCode){
+   emit(LoginLoadingState());
    PhoneAuthCredential credential = PhoneAuthProvider
        .credential(verificationId: verificationId, smsCode: smsCode);
    FirebaseAuth.instance.signInWithCredential(credential)
        .then((value){
      print(value.user!.phoneNumber!);
-     emit(LoginCodeSentState());
+     emit(LoginSubmitOtpState());
    }).catchError((error){
-     printError("submitOtp", error.toString());
-     emit(LoginErrorState());
+     //printError("submitOtp", error.toString());
+     emit(LoginErrorState(error.toString()));
    });
  }
+
+  User getLoggedUser(){
+    User user = FirebaseAuth.instance.currentUser!;
+    return user;
+  }
 }
+

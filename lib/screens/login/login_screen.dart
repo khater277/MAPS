@@ -7,10 +7,12 @@ import 'package:maps/screens/login/login_items/country_and_phone.dart';
 import 'package:maps/screens/login/login_items/login_head.dart';
 import 'package:maps/screens/login/login_items/next_button.dart';
 import 'package:maps/screens/otp/otp_screen.dart';
+import 'package:maps/shared/default_widgets.dart';
 
 
 
 class LoginScreen extends StatefulWidget {
+
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -30,7 +32,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<LoginCubit,LoginStates>(
       listener: (context,state){
         if(state is LoginCodeSentState){
-          Get.to(()=>const OtpScreen());
+          Get.to(()=> OtpScreen(phoneNumber: _phoneController.text,));
+        }
+        if(state is LoginErrorState){
+          showSnackBar(text: state.error.toString(), context: context);
         }
       },
       builder: (context,state){

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:maps/shared/constant.dart';
 
 class OtpHead extends StatelessWidget {
-  const OtpHead({Key? key}) : super(key: key);
+  final String phoneNumber;
+  const OtpHead({Key? key, required this.phoneNumber,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +19,17 @@ class OtpHead extends StatelessWidget {
         ),
         const SizedBox(height: 30,),
         RichText(
-            text: const TextSpan(
+            text: TextSpan(
               text: "Enter your 6 digit code number sent to ",
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 17,
                   color: Colors.black,
                 height: 1.5
               ),
               children: [
                 TextSpan(
-                  text: "01011677722",
-                  style: TextStyle(
+                  text: phoneNumber,
+                  style: const TextStyle(
                       fontSize: 17,
                       color: blue
                   ),

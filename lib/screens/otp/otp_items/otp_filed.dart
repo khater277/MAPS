@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:maps/cubit/login/login_cubit.dart';
 import 'package:maps/shared/constant.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -36,11 +39,10 @@ class _OtpFiledState extends State<OtpFiled> {
       animationDuration: const Duration(milliseconds: 300),
       backgroundColor: Colors.white,
       enableActiveFill: true,
-      onCompleted: (v) {
-        print("Completed");
-        print(v);
+      onCompleted: (smsCode) {
+        LoginCubit.get(context).submitOtp(smsCode);
         setState(() {
-          otp = v;
+          otp = smsCode;
         });
       },
       onChanged: (value) {

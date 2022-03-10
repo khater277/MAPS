@@ -1,10 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:maps/cubit/app/maps_cubit.dart';
-import 'package:maps/cubit/login/login_cubit.dart';
 import 'package:maps/cubit/login/login_cubit.dart';
 import 'package:maps/cubit/login/login_states.dart';
-import 'package:maps/screens/otp/otp_screen.dart';
 import 'package:maps/shared/default_widgets.dart';
 
 
@@ -26,7 +24,7 @@ class NextButton extends StatelessWidget {
                 fontSize: 16
             ),
           )
-        :const DefaultButtonLoader(size: 20, width: 2, color: Colors.white),
+        :const DefaultButtonLoader(size: 20, width: 3, color: Colors.white),
           color: Colors.black,
           rounded: 4,
           height: 45,

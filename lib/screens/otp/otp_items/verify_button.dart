@@ -20,7 +20,7 @@ class VerifyButton extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 )
               : const DefaultButtonLoader(
-                  size: 20, width: 2, color: Colors.white),
+                  size: 20, width: 3, color: Colors.white),
           color: Colors.black,
           rounded: 4,
           height: 45,
